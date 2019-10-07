@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h1>PumaPay Bitcoin Block Explorer</h1>
+        <br />
+        <p>This service, powered by BlockBook API, allows you to monitor Bitcoin blockchain and retrieve data per each mined block, executed transaction or address.</p>
+        <br />
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <th scope="row">Current Bitcoin price</th>
+              <td>{{ btcusdprice?.rate | number }} USD</td>
+            </tr>
+            <tr>
+                <th scope="row"></th>
+                <td>{{ btcethprice?.rate | number }} ETH</td>
+              </tr>
+            <tr>
+               <tr>
+                  <th scope="row"></th>
+                  <td>{{ btcpmaprice?.rate | number }} PMA</td>
+               </tr>
+            <tr>
+            <tr>
+              <th scope="row">Last price update</th>
+              <td>{{ btcusdprice?.time | date:'long' }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Price source</th>
+              <td><a href="https://coinapi.io">CoinAPI</a></td>
+            </tr>
+            <tr>
+                <th scope="row">Latest mined blocks</th>
+                <td><a href="/blocks/{{ general?.bestHeight }}" target="_blank">{{ general?.bestHeight }}</a>,
+                  <a href="/blocks/{{ general?.bestHeight-1 }}" target="_blank">{{ general?.bestHeight-1 }}</a>,
+                  <a href="/blocks/{{ general?.bestHeight-2 }}" target="_blank">{{ general?.bestHeight-2 }}</a>,
+                  <a href="/blocks/{{ general?.bestHeight-3 }}" target="_blank">{{ general?.bestHeight-3 }}</a>,
+                  <a href="/blocks/{{ general?.bestHeight-3 }}" target="_blank">{{ general?.bestHeight-4 }}</a>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Last block update</th>
+                <td>{{ general?.lastBlockTime | date:'long' }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Host</th>
+                <td>{{ general?.host }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Blockbook version</th>
+                <td>{{ general?.version }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Mempool size</th>
+                <td>{{ general?.mempoolSize }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Last mempool update</th>
+                <td>{{ general?.lastMempoolTime | date:'long' }}</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>

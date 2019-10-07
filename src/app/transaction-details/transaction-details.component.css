@@ -1,0 +1,17 @@
+table {
+  border-collapse: collapse;
+  max-width: 100%;
+}
+
+.is-overflow-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 1px;
+  width: 100%;
+}
+
+
+.example-tooltip-red {
+  background: #b71c1c;
+}

@@ -1,0 +1,161 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Transaction</h1>
+      <table class="table table-borderless" style="background-color: rgb(241, 241, 241);">
+      <tbody>
+        <tr>
+          <th scope="row">Hash</th>
+          <td class="is-overflow-ellipsis">{{ hash }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Mined</th>
+          <td>{{ tx?.blockTime*1000 | date:'long' }}</td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-4" style="padding-left: 1.6em; padding-right: 1.6em">
+        <h4>Main data</h4>
+    </div>
+    <div class="col-md-4" style="padding-left: 1.6em; padding-right: 1.6em">
+        <h4>Mixorio data
+      <span class="btn-group" style="font-size: 0.5em">
+          <button mat-raised-button
+          style="margin-left: 1em; margin-right: 1em"
+          matTooltip="Info about the action"
+          matTooltipClass="example-tooltip-red"
+          aria-label="Button that shows a red tooltip"
+          class="example-button">
+          How it works
+          </button>
+      </span>
+    </h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th scope="row">Block height</th>
+            <td><a href="/blocks/{{ tx?.blockHeight }}" target="_blank">{{ tx?.blockHeight }}</a></td>
+          </tr>
+          <tr>
+            <th scope="row">Confirmations</th>
+            <td>{{ tx?.confirmations }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Total Output</th>
+            <td>{{ tx?.value/100000000 }} BTC</td>
+          </tr>
+          <tr>
+            <th scope="row">Fees</th>
+            <td>{{ tx?.fees/100000 }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <br />
+    </div>
+    <div class="col-md-4">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th scope="row">Mixed source chance</th>
+            <td style="color:orange"><strong>68%</strong></td>
+          </tr>
+          <tr>
+            <th scope="row">Funds from mixer</th>
+            <td style="color:red"><strong>92%</strong></td>
+          </tr>
+          <tr>
+            <th scope="row">Turns to mixer</th>
+            <td>2</td>
+          </tr>
+          <tr>
+            <th scope="row">Source spotting chance</th>
+            <td style="color:green"><strong>87%</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <br />
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+        <h2>Details</h2>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6" style="background-color: rgb(241, 241, 241); padding-top: 15px; padding-bottom: 15px">
+        <h4>Input</h4>
+        <table class="table table-hover" style="background-color: #ffffff; font-size: 0.9em">
+            <thead>
+              <tr>
+                <td>Address</td>
+                <td>Mixed</td>
+                <td align="right">Amount</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let vin of tx?.vin">
+                <td class="is-overflow-ellipsis" style="width: 60%">
+                  <a *ngIf="vin.isAddress" href="/addresses/{{ vin?.addresses }}" target="_blank">{{ vin?.addresses }}</a>
+                  <span *ngIf="!vin.isAddress"></span>
+                </td>
+                <td style="color:red">
+                  89%
+                </td>
+                <td align="right">
+                  <span *ngIf="vin.isAddress">{{ vin?.value/100000000 }} BTC</span>
+                  <span *ngIf="!vin.isAddress">No input</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h4>Previous inputs</h4>
+          <table class="table table-hover" style="background-color: #ffffff; font-size: 0.9em">
+              <thead>
+                <tr>
+                  <td>Address</td>
+                  <td>Mixed</td>
+                  <td align="right">Amount</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let vin of tx?.vin">
+                  <td class="is-overflow-ellipsis" style="width: 60%">
+                    <a *ngIf="vin.isAddress" href="/addresses/{{ vin?.addresses }}" target="_blank">{{ vin?.addresses }}</a>
+                    <span *ngIf="!vin.isAddress"></span>
+                  </td>
+                  <td style="color:red">
+                    89%
+                  </td>
+                  <td align="right">
+                    <span *ngIf="vin.isAddress">{{ vin?.value/100000000 }} BTC</span>
+                    <span *ngIf="!vin.isAddress">No input</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+      <div class="col-md-6" style="background-color: rgb(241, 241, 241); padding-top: 15px; padding-bottom: 15px">
+        <h4>Output</h4>
+        <table class="table table-hover" style="background-color: #ffffff;">
+            <tbody>
+              <tr *ngFor="let vout of tx?.vout">
+                <td class="is-overflow-ellipsis" style="width: 80%">
+                  <a *ngIf="vout.isAddress" href="/addresses/{{ vout?.addresses }}" target="_blank">{{ vout?.addresses }}</a>
+                  <span *ngIf="!vout.isAddress"> {{ vout?.addresses }} </span>
+                </td>
+                <td>{{ vout?.value/100000000 }}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+

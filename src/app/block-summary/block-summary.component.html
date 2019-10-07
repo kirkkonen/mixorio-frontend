@@ -1,0 +1,120 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h1>Block #{{ block?.height }}</h1>
+        <table class="table table-borderless" style="background-color: rgb(241, 241, 241);">
+        <tbody>
+          <tr>
+            <th scope="row">Hash</th>
+            <td class="is-overflow-ellipsis" style="width:80%">{{ block?.hash }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Mined</th>
+            <td> {{ block?.time*1000 | date:'long' }} </td>
+          </tr>
+          <tr>
+            <th scope="row">Txs from mixers</th>
+            <td style="color:green"><strong>13%</strong></td>
+          </tr>
+        </tbody>
+        </table>
+        <br />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row" class="col-md-6">Height</th>
+                <td class="col-md-6" style="text-align:right">{{ block?.height }}</td>
+              </tr>
+              <tr>
+                <th scope="row" class="col-md-6 text">Transactions</th>
+                <td class="col-md-6" style="text-align:right">{{ block?.txCount }}</td>
+              </tr>
+              <tr>
+                <th scope="row" class="col-md-6">Confirmations</th>
+                <td class="col-md-6" style="text-align:right">{{ block?.confirmations }}</td>
+              </tr>
+              <tr>
+                <th scope="row" class="col-md-6">Size</th>
+                <td class="col-md-6" style="text-align:right">{{ block?.size }}</td>
+              </tr>
+            </tbody>
+          </table>
+     </div>
+     <div class="col-md-4">
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <th scope="row" class="col-md-6">Version</th>
+              <td class="col-md-6" style="text-align:right">{{ block?.version }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="col-md-6">Nonce</th>
+              <td class="col-md-6" style="text-align:right">{{ block?.nonce }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="col-md-6">Bits</th>
+              <td class="col-md-6" style="text-align:right">{{ block?.bits }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="col-md-6">Difficulty</th>
+              <td class="col-md-6" style="text-align:right">{{ block?.difficulty }}</td>
+            </tr>
+          </tbody>
+        </table>
+       </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row">Merke root</th>
+                <td class="is-overflow-ellipsis" style="width:80%">{{ block?.merkleRoot }}</td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+          <h2>Transactions
+              <span class="btn-group" style="font-size: 0.5em">
+                  <button>
+                  Show mixed only
+                  </button>
+              </span>
+          </h2>
+          <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Hash</th>
+                  <th scope="col">Mixed</th>
+                  <th scope="col">Input</th>
+                  <th scope="col">Output</th>
+                  <th scope="col">Fees</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tx of block?.txs | paginate: { itemsPerPage: 15, currentPage: p }; let i=index">
+                  <td class="is-overflow-ellipsis"><a href="/transactions/{{ tx?.txid }}" target="_blank">{{ tx?.txid }}</a></td>
+                  <td style="color:red">82%</td>
+                  <td>{{ tx?.valueIn/100000000 }}</td>
+                  <td>{{ tx?.value/100000000 }}</td>
+                  <td>{{ tx?.fees/100000000 }}</td>
+                </tr>
+              </tbody>
+          </table>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <div align="center">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
